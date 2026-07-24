@@ -1,0 +1,17 @@
+# Root Git Ignore Config
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.env
+**/.env
+.env*.local
+**/.env*.local
+*.log
+**/*.log
+.DS_Store
+**/.DS_Store
+.vscode/
+**/.vscode/
+.idea/
+**/.idea/
