@@ -32,7 +32,7 @@ export default function Login() {
           <div className="h-14 w-14 bg-leaf-green/10 text-primary-green rounded-2xl flex items-center justify-center mx-auto mb-4 border border-leaf-green/20 shadow-inner">
             <LogIn className="h-7 w-7" />
           </div>
-          <h1 className="text-2xl font-extrabold text-primary-green tracking-tight">🌾 FPG Digital Desk</h1>
+          <h1 className="text-2xl font-extrabold text-primary-green tracking-tight">🌾 CropLedger Desk</h1>
           <p className="text-sm text-slate-500 mt-1.5 font-medium">Smart produce register & payment settlement</p>
         </div>
 

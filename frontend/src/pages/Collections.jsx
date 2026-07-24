@@ -115,7 +115,7 @@ export default function Collections() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', `FPG_Produce_Report_${exportStartDate}_to_${exportEndDate}.csv`);
+    link.setAttribute('download', `CropLedger_Report_${exportStartDate}_to_${exportEndDate}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();

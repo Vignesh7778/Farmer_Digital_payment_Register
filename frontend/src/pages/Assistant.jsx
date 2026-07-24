@@ -33,7 +33,7 @@ export default function Assistant() {
     {
       id: 'welcome',
       sender: 'assistant',
-      text: "Hello! I am your FPG Digital Registry Assistant. Click on one of the quick options below or type keyword searches to find answers about collections, payments, and member registrations.",
+      text: "Hello! I am your CropLedger Assistant. Click on one of the quick options below or type keyword searches to find answers about collections, payments, and member registrations.",
       timestamp: new Date()
     }
   ]);
@@ -169,7 +169,7 @@ export default function Assistant() {
         };
       } else {
         return {
-          answer: `Today, FPG recorded ${todayCols.length} produce deliveries from members, totaling ${formatCurrency(amt)} in value.`,
+          answer: `Today, CropLedger recorded ${todayCols.length} produce deliveries from members, totaling ${formatCurrency(amt)} in value.`,
           options: getFollowUpOptions()
         };
       }
@@ -258,9 +258,9 @@ export default function Assistant() {
         <div>
           <h1 className="text-2xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
             <Sparkles className="h-6 w-6 text-emerald-600 animate-pulse" />
-            <span>FPG Interactive Assistant</span>
+            <span>CropLedger Interactive Assistant</span>
           </h1>
-          <p className="text-sm text-slate-500 mt-1 font-medium">Click quick options or search keywords to access FPG documentation</p>
+          <p className="text-sm text-slate-500 mt-1 font-medium">Click quick options or search keywords to access CropLedger documentation</p>
         </div>
         <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full border border-emerald-100">
           <BookOpen className="h-3.5 w-3.5" />

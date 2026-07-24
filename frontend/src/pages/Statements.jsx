@@ -78,15 +78,15 @@ export default function Statements() {
 
       {/* Select Farmer Card - Hidden on Print & Hidden for Farmers */}
       {!isFarmer && (
-        <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm space-y-4 print:hidden">
-          <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider">Select Farmer Profile</label>
-          <div className="flex gap-4">
+        <div className="bg-white p-6 rounded-2xl border border-warm-border/60 shadow-sm space-y-4 print:hidden">
+          <label className="block text-xs font-bold text-earth-brown uppercase tracking-wider">Select Farmer Profile</label>
+          <div className="w-full">
             <select
               value={selectedFarmerId}
               onChange={(e) => setSelectedFarmerId(e.target.value)}
-              className="flex-1 max-w-md px-3 py-2 rounded-lg border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-semibold bg-white"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-leaf-green focus:border-transparent font-semibold bg-slate-50/30 cursor-pointer transition duration-150"
             >
-              <option value="">Choose FPG Member...</option>
+              <option value="">Choose CropLedger Member...</option>
               {(farmers || []).map(f => (
                 <option key={f.id} value={f.id}>{f.name} ({f.village})</option>
               ))}
@@ -117,7 +117,7 @@ export default function Statements() {
                 </span>
                 <div>
                   <h2 className="font-bold text-slate-800 text-lg">{selectedFarmer.name}</h2>
-                  <p className="text-xs text-slate-400 font-semibold print:text-slate-500">FPG Digital Register Member Profile</p>
+                  <p className="text-xs text-slate-400 font-semibold print:text-slate-500">CropLedger Member Profile</p>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-xs text-slate-500 font-semibold">

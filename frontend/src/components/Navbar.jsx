@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <nav className="h-16 border-b border-warm-border/60 bg-white px-6 flex items-center justify-between sticky top-0 z-10 shadow-sm">
       <div className="flex items-center gap-3">
-        <span className="font-extrabold text-lg text-primary-green tracking-wide">🌾 FPG Digital Register</span>
+        <span className="font-extrabold text-lg text-primary-green tracking-wide">🌾 CropLedger</span>
         <span className={`text-xs px-2.5 py-1 rounded-full font-bold border ${
           user?.role === 'Farmer' 
             ? 'bg-leaf-green/10 text-leaf-green border-leaf-green/20' 

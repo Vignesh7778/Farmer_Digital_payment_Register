@@ -55,7 +55,7 @@ export default function Sidebar() {
         ))}
       </div>
       <div className="pt-4 border-t border-warm-border/50 text-[10px] uppercase font-bold text-slate-400 text-center tracking-wider">
-        <span>🌾 FPG Digital Desk v1.0.0</span>
+        <span>🌾 CropLedger Desk v1.0.0</span>
       </div>
     </aside>
   );

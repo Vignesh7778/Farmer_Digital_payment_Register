@@ -96,7 +96,7 @@ export default function Dashboard() {
         {
           title: 'Total Farmers',
           value: stats.totalFarmers,
-          desc: 'Registered FPG members',
+          desc: 'Registered CropLedger members',
           icon: Users,
           color: 'bg-[#f0f4f1] text-[#1b4332] border-[#e1ece4]',
         },
@@ -129,7 +129,7 @@ export default function Dashboard() {
       <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-warm-border/50 pb-5 gap-4">
         <div>
           <h1 className="text-2xl font-extrabold text-primary-green tracking-tight">
-            {isFarmer ? `Welcome, ${user.username}` : '🌾 FPG Dashboard'}
+            {isFarmer ? `Welcome, ${user.username}` : '🌾 CropLedger Dashboard'}
           </h1>
           <p className="text-sm text-slate-500 mt-1 font-semibold">
             {isFarmer ? 'Your digital delivery receipts and payout balance statements' : 'Collection operator console & agricultural delivery logs'}
