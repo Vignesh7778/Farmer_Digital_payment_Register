@@ -8,6 +8,7 @@
     "dev": "npx --yes concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
     "start:backend": "npm --prefix backend start",
     "start:frontend": "npm --prefix frontend run preview",
-    "build:frontend": "npm --prefix frontend run build"
+    "build:frontend": "npm --prefix frontend run build",
+    "build": "npm install --prefix frontend && npm --prefix frontend run build"
   }
 }
