@@ -1,6 +1,5 @@
 // Application Constants
 export const ROUTES = {
-  LOGIN: '/login',
   DASHBOARD: '/',
   FARMERS: '/farmers',
   PRODUCE: '/produce',

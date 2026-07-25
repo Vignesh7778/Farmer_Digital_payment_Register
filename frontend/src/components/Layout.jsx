@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import BottomNavigation from './BottomNavigation';
-import { ROUTES } from '../constants';
+import Login from '../pages/Login';
 
 export default function Layout() {
   const { user, loading } = useAuth();
@@ -22,7 +22,7 @@ export default function Layout() {
   }
 
   if (!user) {
-    return <Navigate to={ROUTES.LOGIN} replace />;
+    return <Login />;
   }
 
   return (

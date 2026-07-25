@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from '../components/Layout';
-import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
 import Farmers from '../pages/Farmers';
 import Produce from '../pages/Produce';
@@ -15,9 +14,6 @@ import { ROUTES } from '../constants';
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* Public Routes */}
-      <Route path={ROUTES.LOGIN} element={<Login />} />
-
       {/* Protected operator dashboard routes */}
       <Route path="/" element={<Layout />}>
         <Route index element={<Dashboard />} />
