@@ -78,20 +78,6 @@ export default function Login() {
             <span>Login to Portal</span>
           </button>
         </form>
-
-        <div className="mt-8 pt-6 border-t border-warm-border/50 text-center text-xs text-slate-500 bg-warm-cream/30 rounded-2xl p-4 border border-warm-border/30">
-          <p className="font-bold text-earth-brown mb-1.5 uppercase tracking-wider text-[10px]">Demo Access Credentials</p>
-          <div className="grid grid-cols-2 gap-2 text-left font-semibold">
-            <div className="bg-white p-2 rounded-lg border border-warm-border/40 text-center">
-              <span className="text-[10px] text-slate-400 block font-bold">OPERATOR</span>
-              <span className="text-primary-green">operator / admin123</span>
-            </div>
-            <div className="bg-white p-2 rounded-lg border border-warm-border/40 text-center">
-              <span className="text-[10px] text-slate-400 block font-bold">FARMER</span>
-              <span className="text-leaf-green">[Phone] / farmer123</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
