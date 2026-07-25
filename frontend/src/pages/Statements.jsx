@@ -178,50 +178,52 @@ export default function Statements() {
                 No produce deliveries registered for this farmer profile yet.
               </div>
             ) : (
-              <table className="w-full text-left border-collapse text-sm">
-                <thead>
-                  <tr className="bg-[#faf9f5] border-b border-warm-border/40 text-earth-brown font-bold text-xs uppercase tracking-wider print:bg-transparent print:border-slate-200">
-                    <th className="px-6 py-3">Date</th>
-                    <th className="px-6 py-3">Produce</th>
-                    <th className="px-6 py-3 text-right">Quantity</th>
-                    <th className="px-6 py-3 text-right">Rate</th>
-                    <th className="px-6 py-3 text-right">Total Amount</th>
-                    <th className="px-6 py-3 text-center">Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-warm-border/30 text-earth-brown font-semibold print:divide-slate-200">
-                  {farmerCollections.map((col) => (
-                    <tr key={col.collection_id} className="hover:bg-[#faf9f5]/30 transition duration-150">
-                      <td className="px-6 py-4 text-xs text-slate-400 font-bold">
-                        {formatDate(col.collection_date)}
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="font-extrabold text-slate-800">{col.produce_name}</span>
-                      </td>
-                      <td className="px-6 py-4 text-right text-slate-800 font-bold">
-                        {col.quantity} <span className="text-slate-400 text-xs">{col.produce_unit}</span>
-                      </td>
-                      <td className="px-6 py-4 text-right text-slate-500 font-semibold">
-                        {formatCurrency(col.rate)}
-                      </td>
-                      <td className="px-6 py-4 text-right text-primary-green font-extrabold">
-                        {formatCurrency(col.amount)}
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-extrabold border ${
-                          col.payment_status === 'Paid'
-                            ? 'bg-[#eef8f4] text-[#2d6a4f] border-[#d7f1e6]'
-                            : col.payment_status === 'Partially Paid'
-                            ? 'bg-[#fdf9ee] text-[#d4a373] border-[#fbf2d5]'
-                            : 'bg-[#fdf4f2] text-[#c94a29] border-[#f9dfd9]'
-                        }`}>
-                          {col.payment_status}
-                        </span>
-                      </td>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-sm">
+                  <thead>
+                    <tr className="bg-[#faf9f5] border-b border-warm-border/40 text-earth-brown font-bold text-xs uppercase tracking-wider print:bg-transparent print:border-slate-200">
+                      <th className="px-6 py-3">Date</th>
+                      <th className="px-6 py-3">Produce</th>
+                      <th className="px-6 py-3 text-right">Quantity</th>
+                      <th className="px-6 py-3 text-right">Rate</th>
+                      <th className="px-6 py-3 text-right">Total Amount</th>
+                      <th className="px-6 py-3 text-center">Status</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-warm-border/30 text-earth-brown font-semibold print:divide-slate-200">
+                    {farmerCollections.map((col) => (
+                      <tr key={col.collection_id} className="hover:bg-[#faf9f5]/30 transition duration-150">
+                        <td className="px-6 py-4 text-xs text-slate-400 font-bold">
+                          {formatDate(col.collection_date)}
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className="font-extrabold text-slate-800">{col.produce_name}</span>
+                        </td>
+                        <td className="px-6 py-4 text-right text-slate-800 font-bold">
+                          {col.quantity} <span className="text-slate-400 text-xs">{col.produce_unit}</span>
+                        </td>
+                        <td className="px-6 py-4 text-right text-slate-500 font-semibold">
+                          {formatCurrency(col.rate)}
+                        </td>
+                        <td className="px-6 py-4 text-right text-primary-green font-extrabold">
+                          {formatCurrency(col.amount)}
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-extrabold border ${
+                            col.payment_status === 'Paid'
+                              ? 'bg-[#eef8f4] text-[#2d6a4f] border-[#d7f1e6]'
+                              : col.payment_status === 'Partially Paid'
+                              ? 'bg-[#fdf9ee] text-[#d4a373] border-[#fbf2d5]'
+                              : 'bg-[#fdf4f2] text-[#c94a29] border-[#f9dfd9]'
+                          }`}>
+                            {col.payment_status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         </div>

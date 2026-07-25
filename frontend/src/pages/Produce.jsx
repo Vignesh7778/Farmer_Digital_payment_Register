@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 import {
   Sprout,
   Plus,
-  Trash2,
   AlertCircle,
   Tag,
   Scale
@@ -36,27 +35,8 @@ export default function Produce() {
     },
   });
 
-  // Delete Crop Mutation
-  const deleteMutation = useMutation({
-    mutationFn: (id) => db.deleteProduce(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['produce'] });
-      toast.success('Crop deleted successfully');
-    },
-    onError: (err) => {
-      // Handles Task 5 database errors demonstration:
-      toast.error(err.message || 'Foreign key violation: Crop in use.');
-    },
-  });
-
   const onSubmit = (data) => {
     addMutation.mutate(data);
-  };
-
-  const confirmDelete = (item) => {
-    if (window.confirm(`Are you sure you want to delete ${item.name}? This will fail if there are deliveries recorded under this crop.`)) {
-      deleteMutation.mutate(item.id);
-    }
   };
 
   return (
@@ -91,42 +71,34 @@ export default function Produce() {
             </div>
           ) : (
             <div className="bg-white rounded-2xl border border-warm-border/60 shadow-sm overflow-hidden">
-              <table className="w-full text-left border-collapse text-sm">
-                <thead>
-                  <tr className="bg-[#faf9f5] border-b border-warm-border/40 text-earth-brown font-bold text-xs uppercase tracking-wider">
-                    <th className="px-6 py-4">Crop Name</th>
-                    <th className="px-6 py-4">Standard Billing Unit</th>
-                    <th className="px-6 py-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-warm-border/30 text-earth-brown font-semibold">
-                  {produce.map((item) => (
-                    <tr key={item.id} className="hover:bg-[#faf9f5]/30 transition duration-150">
-                      <td className="px-6 py-4 flex items-center gap-3">
-                        <div className="h-8 w-8 bg-leaf-green/10 rounded-lg flex items-center justify-center text-leaf-green border border-leaf-green/20 shadow-sm">
-                          <Tag className="h-4 w-4" />
-                        </div>
-                        <span className="font-extrabold text-slate-800">{item.name}</span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="bg-leaf-green/5 text-leaf-green text-xs px-2.5 py-1 rounded-lg font-bold border border-leaf-green/20 inline-flex items-center gap-1.5">
-                          <Scale className="h-3 w-3" />
-                          <span>{item.unit}</span>
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        <button
-                          onClick={() => confirmDelete(item)}
-                          className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
-                          title="Delete Crop"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </td>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-sm">
+                  <thead>
+                    <tr className="bg-[#faf9f5] border-b border-warm-border/40 text-earth-brown font-bold text-xs uppercase tracking-wider">
+                      <th className="px-6 py-4 w-2/3">Crop Name</th>
+                      <th className="px-6 py-4 text-right w-1/3">Standard Billing Unit</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-warm-border/30 text-earth-brown font-semibold">
+                    {produce.map((item) => (
+                      <tr key={item.id} className="hover:bg-[#faf9f5]/30 transition duration-150">
+                        <td className="px-6 py-4 flex items-center gap-3">
+                          <div className="h-8 w-8 bg-leaf-green/10 rounded-lg flex items-center justify-center text-leaf-green border border-leaf-green/20 shadow-sm">
+                            <Tag className="h-4 w-4" />
+                          </div>
+                          <span className="font-extrabold text-slate-800 capitalize">{item.name}</span>
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <span className="bg-leaf-green/5 text-leaf-green text-xs px-2.5 py-1 rounded-lg font-bold border border-leaf-green/20 inline-flex items-center gap-1.5">
+                            <Scale className="h-3 w-3" />
+                            <span>{item.unit}</span>
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </div>

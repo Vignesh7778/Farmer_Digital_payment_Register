@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
+import BottomNavigation from './BottomNavigation';
 import { ROUTES } from '../constants';
 
 export default function Layout() {
   const { user, loading } = useAuth();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (loading) {
     return (
@@ -24,14 +26,15 @@ export default function Layout() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-warm-cream">
+    <div className="h-screen flex flex-col bg-warm-cream overflow-hidden">
       <Navbar />
-      <div className="flex flex-1">
-        <Sidebar />
-        <main className="flex-1 p-8 overflow-y-auto max-w-7xl mx-auto w-full animate-fade-in">
+      <div className="flex flex-1 relative overflow-hidden">
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <main className="flex-1 p-4 lg:p-8 overflow-y-auto max-w-7xl mx-auto w-full animate-fade-in pb-24 lg:pb-8">
           <Outlet />
         </main>
       </div>
+      <BottomNavigation />
     </div>
   );
 }

@@ -16,7 +16,7 @@ export default function Login() {
   }
 
   const onSubmit = async (data) => {
-    const res = await login(data.username, data.password);
+    const res = await login(data.login_uid, data.secret_key);
     if (res.success) {
       toast.success('Successfully logged in!');
       navigate(ROUTES.DASHBOARD);
@@ -45,13 +45,13 @@ export default function Login() {
               </span>
               <input
                 type="text"
-                {...register('username', { required: 'Username or phone number is required' })}
-                defaultValue="operator"
+                {...register('login_uid', { required: 'Username or phone number is required' })}
+                autoComplete="username"
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-leaf-green focus:border-transparent text-sm text-slate-850 font-semibold bg-slate-50/50"
                 placeholder="operator or farmer phone"
               />
             </div>
-            {errors.username && <p className="text-red-500 text-xs mt-1.5 font-semibold">{errors.username.message}</p>}
+            {errors.login_uid && <p className="text-red-500 text-xs mt-1.5 font-semibold">{errors.login_uid.message}</p>}
           </div>
 
           <div>
@@ -62,13 +62,13 @@ export default function Login() {
               </span>
               <input
                 type="password"
-                {...register('password', { required: 'Password is required' })}
-                defaultValue="admin123"
+                {...register('secret_key', { required: 'Password is required' })}
+                autoComplete="current-password"
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-leaf-green focus:border-transparent text-sm text-slate-850 font-semibold bg-slate-50/50"
                 placeholder="Enter account password"
               />
             </div>
-            {errors.password && <p className="text-red-500 text-xs mt-1.5 font-semibold">{errors.password.message}</p>}
+            {errors.secret_key && <p className="text-red-500 text-xs mt-1.5 font-semibold">{errors.secret_key.message}</p>}
           </div>
 
           <button

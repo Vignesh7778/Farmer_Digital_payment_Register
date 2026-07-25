@@ -6,16 +6,14 @@ import {
   Users,
   Sprout,
   PlusCircle,
-  History,
   FileText,
   MessageSquareCode,
-  SlidersHorizontal,
-  Info
+  X
 } from 'lucide-react';
 
 import { useAuth } from '../contexts/AuthContext';
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   const { user } = useAuth();
   const isFarmer = user?.role === 'Farmer';
 
@@ -35,28 +33,56 @@ export default function Sidebar() {
       ];
 
   return (
-    <aside className="w-64 border-r border-warm-border/60 bg-white min-h-[calc(100vh-4rem)] flex flex-col p-4 shadow-sm select-none">
-      <div className="flex-1 flex flex-col gap-1.5">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                isActive
-                  ? 'bg-leaf-green/10 text-primary-green border-l-4 border-leaf-green shadow-sm'
-                  : 'text-earth-brown/80 hover:bg-warm-cream/60 hover:text-primary-green'
-              }`
-            }
+    <>
+      {/* Mobile Drawer Overlay Backdrop */}
+      {isOpen && (
+        <div
+          onClick={onClose}
+          className="fixed inset-0 bg-slate-900/30 backdrop-blur-xs z-30 lg:hidden transition-opacity duration-300"
+        />
+      )}
+
+      <aside
+        className={`fixed lg:static inset-y-0 left-0 w-64 border-r border-warm-border/60 bg-white min-h-[calc(100vh-4rem)] flex flex-col p-4 shadow-sm select-none z-40 transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        } top-16 lg:top-auto`}
+      >
+        {/* Mobile Header for Sidebar Drawer */}
+        <div className="flex items-center justify-between pb-4 mb-2 border-b border-warm-border/30 lg:hidden">
+          <span className="font-extrabold text-primary-green text-sm flex items-center gap-1.5">
+            🌾 Menu Registry
+          </span>
+          <button
+            onClick={onClose}
+            className="p-1.5 text-slate-400 hover:text-slate-650 hover:bg-slate-100 rounded-lg cursor-pointer transition"
           >
-            <item.icon className="h-5 w-5 shrink-0" />
-            <span>{item.label}</span>
-          </NavLink>
-        ))}
-      </div>
-      <div className="pt-4 border-t border-warm-border/50 text-[10px] uppercase font-bold text-slate-400 text-center tracking-wider">
-        <span>🌾 CropLedger Desk v1.0.0</span>
-      </div>
-    </aside>
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div className="flex-1 flex flex-col gap-1.5">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              onClick={onClose}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                  isActive
+                    ? 'bg-leaf-green/10 text-primary-green border-l-4 border-leaf-green shadow-sm'
+                    : 'text-earth-brown/80 hover:bg-warm-cream/60 hover:text-primary-green'
+                }`
+              }
+            >
+              <item.icon className="h-5 w-5 shrink-0" />
+              <span>{item.label}</span>
+            </NavLink>
+          ))}
+        </div>
+        <div className="pt-4 border-t border-warm-border/50 text-[10px] uppercase font-bold text-slate-400 text-center tracking-wider">
+          <span>🌾 CropLedger Desk v1.0.0</span>
+        </div>
+      </aside>
+    </>
   );
 }

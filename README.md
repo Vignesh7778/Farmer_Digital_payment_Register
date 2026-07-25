@@ -77,28 +77,58 @@ The application runs on a fully normalized relational schema detailed in [ER_DIA
 ### Prerequisites
 * Node.js v22+ and npm v11+ installed.
 
-### 1. Frontend Setup
-1. Navigate to the frontend directory:
+### Root-Level Execution (Recommended)
+You can run and manage the applications directly from the root workspace directory without navigating inside the folders:
+
+* **Run both frontend and backend concurrently:**
+  ```bash
+  npm run dev
+  ```
+* **Run backend only:**
+  ```bash
+  npm run dev:backend
+  ```
+* **Run frontend only:**
+  ```bash
+  npm run dev:frontend
+  ```
+* **Build frontend:**
+  ```bash
+  npm run build:frontend
+  ```
+
+### Manual Individual Setup
+
+#### 1. Backend Setup
+1. Navigate to the `backend` directory and install dependencies:
    ```bash
-   cd frontend
-   ```
-2. Install package dependencies:
-   ```bash
+   cd backend
    npm install
    ```
-3. Initialize the environment configuration:
+2. Start the Express server:
+   ```bash
+   npm run dev
+   ```
+
+#### 2. Frontend Setup
+1. Navigate to the `frontend` directory and install dependencies:
+   ```bash
+   cd frontend
+   npm install
+   ```
+2. Initialize the environment configuration:
    * Rename `.env.example` to `.env`
-   * To test local mockup storage fallback immediately (zero configuration required), keep the default environment placeholders intact.
+   * To test local mockup storage fallback immediately, keep the default environment placeholders intact.
    * To connect to your live Supabase project, replace the credentials:
      ```env
      VITE_SUPABASE_URL=https://your-project-id.supabase.co
      VITE_SUPABASE_ANON_KEY=your-anon-key
      ```
-4. Start the Vite local server:
+3. Start the Vite local server:
    ```bash
    npm run dev
    ```
-5. Log in with the operator credentials:
+4. Log in with the operator credentials:
    * **Username:** `operator`
    * **Password:** `admin123`
 

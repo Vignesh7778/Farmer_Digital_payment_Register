@@ -19,3 +19,4 @@ export const PRODUCE_UNITS = [
 ];
 
 export { faqData } from './faqData';
+export { faqDataTa } from './faqDataTa';

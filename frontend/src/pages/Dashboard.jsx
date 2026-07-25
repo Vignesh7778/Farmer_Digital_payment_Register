@@ -10,7 +10,8 @@ import {
   CalendarDays,
   TrendingUp,
   AlertTriangle,
-  ArrowRight
+  ArrowRight,
+  Scale
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../constants';
