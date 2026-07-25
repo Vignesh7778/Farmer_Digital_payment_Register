@@ -30,7 +30,7 @@ export default function Assistant() {
 
   const [lang, setLang] = useState(null);
   const [queryInput, setQueryInput] = useState('');
-  
+
   const WELCOME_MESSAGES = {
     en: "Hello! I am your CropLedger Assistant. Click on one of the quick options below or type keyword searches to find answers about collections, payments, and member registrations.",
     ta: "வணக்கம்! நான் உங்களின் CropLedger உதவி உதவியாளர். சேகரிப்புகள், கொடுப்பனவுகள் மற்றும் உறுப்பினர் பதிவுகள் பற்றிய பதில்களைக் கண்டறிய கீழே உள்ள விரைவான விருப்பங்களில் ஒன்றைக் கிளிக் செய்யவும் அல்லது தேடவும்."
@@ -40,11 +40,17 @@ export default function Assistant() {
     en: [
       "How do I register a new farmer?",
       "How is the total collection amount calculated?",
+      "How do I settle a payment for a crop delivery?",
+      "Where can I see the historical payment audits?",
+      "How do I add a new unit type?",
       "How do I download an Excel or CSV report?"
     ],
     ta: [
       "புதிய விவசாயியை எவ்வாறு பதிவு செய்வது?",
-      "விவசாயியின் நிலுவைத்தொகை எவ்வாறு கணக்கிடப்படுகிறது?",
+      "விநியோகத் தொகை எவ்வாறு கணக்கிடப்படுகிறது?",
+      "பட்டுவாடா அல்லது செட்டில்மென்ட் செய்வது எப்படி?",
+      "விவசாயிகளுக்கு பட்டுவாடா வரலாறு எங்கு காட்டப்படுகிறது?",
+      "டன் அலகு எதற்குப் பயன்படுகிறது?",
       "எக்செல்/சிஎஸ்வி அறிக்கையை எவ்வாறு பதிவிறக்குவது?"
     ]
   };
@@ -57,7 +63,7 @@ export default function Assistant() {
       timestamp: new Date()
     }
   ]);
-  
+
   // Manage dynamic option buttons
   const [activeOptions, setActiveOptions] = useState(["English", "Tamil"]);
 
@@ -76,7 +82,7 @@ export default function Assistant() {
           timestamp: new Date()
         }
       ]);
-      setActiveOptions(["English", "Tamil"]);
+      setActiveOptions(["English", "தமிழ்"]);
     }
     setQueryInput('');
     setSuggestions([]);
@@ -92,8 +98,8 @@ export default function Assistant() {
     const activeFaq = lang === 'ta' ? faqDataTa : faqData;
     if (queryInput.trim().length > 1) {
       const matchText = queryInput.toLowerCase();
-      const filtered = activeFaq.filter(q => 
-        q.question.toLowerCase().includes(matchText) || 
+      const filtered = activeFaq.filter(q =>
+        q.question.toLowerCase().includes(matchText) ||
         q.answer.toLowerCase().includes(matchText)
       ).slice(0, 5);
       setSuggestions(filtered);
@@ -129,7 +135,7 @@ export default function Assistant() {
   // Q&A matching logic with dynamic database lookups
   const matchQuestionAndAnswer = (rawQuery) => {
     const query = rawQuery.trim().toLowerCase();
-    
+
     // 1. Dynamic Farmer self-lookup: "Show my payment" / "Show my deliveries" / "How much did I earn"
     const isSelfQuery = (isFarmer && (
       query.includes('my payment') || query.includes('my deliveries') || query.includes('i earn') || query.includes('my total') || query.includes('my balance') ||
@@ -141,7 +147,7 @@ export default function Assistant() {
       const qty = myCols.reduce((sum, c) => sum + c.quantity, 0);
       const paid = myCols.reduce((sum, c) => sum + (c.amount_paid || 0), 0);
       const pending = myCols.reduce((sum, c) => sum + (c.balance_pending || 0), 0);
-      
+
       if (lang === 'ta') {
         return {
           answer: `வணக்கம் ${user.username}, நீங்கள் மொத்தம் ${myCols.length} விநியோகங்களை (${qty.toFixed(1)} அலகுகள்) செய்துள்ளீர்கள். கணக்கு விவரம்: மொத்த வருவாய்: ${formatCurrency(total)}, செலுத்திய தொகை: ${formatCurrency(paid)}, நிலுவைத் தொகை: ${formatCurrency(pending)}.`,
@@ -158,7 +164,7 @@ export default function Assistant() {
     // 2. Dynamic Farmer name-lookup: "How much did Ramesh earn" / "payout of Kumar"
     const matchedFarmer = farmers.find(f => query.includes(f.name.toLowerCase()) || query.includes(f.name.split(' ')[0].toLowerCase()));
     const isEarningsQuery = (query.includes('earn') || query.includes('payout') || query.includes('payment') || query.includes('statement') || query.includes('total') || query.includes('balance') ||
-                             query.includes('வருமானம்') || query.includes('பட்டுவாடா') || query.includes('பணம்') || query.includes('அறிக்கை') || query.includes('மொத்தம்') || query.includes('நிலுவை'));
+      query.includes('வருமானம்') || query.includes('பட்டுவாடா') || query.includes('பணம்') || query.includes('அறிக்கை') || query.includes('மொத்தம்') || query.includes('நிலுவை'));
     if (matchedFarmer && isEarningsQuery) {
       // SECURITY: If user is a Farmer, block querying other farmers' data
       if (isFarmer && matchedFarmer.id !== user.id) {
@@ -174,13 +180,13 @@ export default function Assistant() {
           };
         }
       }
-      
+
       const cols = collections.filter(c => c.farmer_id === matchedFarmer.id);
       const total = cols.reduce((sum, c) => sum + c.amount, 0);
       const qty = cols.reduce((sum, c) => sum + c.quantity, 0);
       const paid = cols.reduce((sum, c) => sum + (cols.amount_paid || 0), 0); // fallback check
       const pending = cols.reduce((sum, c) => sum + (cols.balance_pending || 0), 0);
-      
+
       if (lang === 'ta') {
         return {
           answer: `${matchedFarmer.name} மொத்தம் ${cols.length} விநியோகங்களை (${qty.toFixed(1)} அலகுகள்) செய்துள்ளார். கணக்கு விவரம்: மொத்த மதிப்பு: ${formatCurrency(total)}, செலுத்திய தொகை: ${formatCurrency(paid)}, நிலுவைத் தொகை: ${formatCurrency(pending)}.`,
@@ -203,7 +209,7 @@ export default function Assistant() {
       'நெல்': 'paddy',
       'பால்': 'milk'
     };
-    
+
     let matchedCrop = produce.find(p => query.includes(p.name.toLowerCase()));
     if (!matchedCrop) {
       const matchedKey = Object.keys(tamilCropMap).find(key => query.includes(key));
@@ -213,15 +219,15 @@ export default function Assistant() {
     }
 
     const isCropQuery = (query.includes('collected') || query.includes('collection') || query.includes('quantity') || query.includes('deliver') || query.includes('volume') ||
-                         query.includes('சேகரிப்பு') || query.includes('அளவு') || query.includes('விநியோகம்') || query.includes('மொத்தம்'));
+      query.includes('சேகரிப்பு') || query.includes('அளவு') || query.includes('விநியோகம்') || query.includes('மொத்தம்'));
     if (matchedCrop && isCropQuery) {
-      const cropCols = collections.filter(c => 
+      const cropCols = collections.filter(c =>
         c.produce_name.toLowerCase() === matchedCrop.name.toLowerCase() &&
         (!isFarmer || c.farmer_id === user.id)
       );
       const qty = cropCols.reduce((sum, c) => sum + c.quantity, 0);
       const amt = cropCols.reduce((sum, c) => sum + c.amount, 0);
-      
+
       if (isFarmer) {
         if (lang === 'ta') {
           return {
@@ -251,15 +257,15 @@ export default function Assistant() {
 
     // 4. Dynamic Today's summary lookup: "show today's collection"
     const isTodayQuery = (query.includes('today') && (query.includes('collection') || query.includes('delivery') || query.includes('deliveries') || query.includes('today\'s'))) ||
-                         (query.includes('இன்று') || query.includes('இன்றைய'));
+      (query.includes('இன்று') || query.includes('இன்றைய'));
     if (isTodayQuery) {
       const todayStr = new Date().toISOString().split('T')[0];
-      const todayCols = collections.filter(c => 
+      const todayCols = collections.filter(c =>
         c.collection_date === todayStr &&
         (!isFarmer || c.farmer_id === user.id)
       );
       const amt = todayCols.reduce((sum, c) => sum + c.amount, 0);
-      
+
       if (isFarmer) {
         if (lang === 'ta') {
           return {
@@ -298,8 +304,8 @@ export default function Assistant() {
     }
 
     // Filter questions containing the query keywords
-    const matches = activeFaq.filter(q => 
-      q.question.toLowerCase().includes(query) || 
+    const matches = activeFaq.filter(q =>
+      q.question.toLowerCase().includes(query) ||
       q.answer.toLowerCase().includes(query)
     );
 
@@ -325,7 +331,7 @@ export default function Assistant() {
     // Split words for keyword match
     const keywords = query.split(' ').filter(w => w.length > 2);
     if (keywords.length > 0) {
-      const keywordMatches = activeFaq.filter(q => 
+      const keywordMatches = activeFaq.filter(q =>
         keywords.some(kw => q.question.toLowerCase().includes(kw) || q.answer.toLowerCase().includes(kw))
       );
       if (keywordMatches.length > 0) {
@@ -399,11 +405,11 @@ export default function Assistant() {
           const aiMsg = {
             id: crypto.randomUUID(),
             sender: 'assistant',
-            text: "Please select one of the language options: 'English' or 'Tamil'. / தயவுசெய்து 'English' அல்லது 'Tamil' ஆகியவற்றில் ஒன்றைத் தேர்ந்தெடுக்கவும்.",
+            text: "Please select one of the language options: 'English' or 'தமிழ்'. / தயவுசெய்து 'English' அல்லது 'தமிழ்' ஆகியவற்றில் ஒன்றைத் தேர்ந்தெடுக்கவும்.",
             timestamp: new Date()
           };
           setMessages((prev) => [...prev, aiMsg]);
-          setActiveOptions(["English", "Tamil"]);
+          setActiveOptions(["English", "தமிழ்"]);
         }
       }, 300);
       return;
@@ -439,19 +445,19 @@ export default function Assistant() {
           <h1 className="text-2xl font-extrabold text-primary-green tracking-tight flex items-center gap-2">
             <Sparkles className="h-6 w-6 text-leaf-green animate-pulse" />
             <span>
-              {!lang 
-                ? 'CropLedger Assistant / உதவியாளர்' 
-                : lang === 'ta' 
-                ? 'CropLedger ஊடாடும் உதவியாளர்' 
-                : 'CropLedger Interactive Assistant'}
+              {!lang
+                ? 'CropLedger Assistant / உதவியாளர்'
+                : lang === 'ta'
+                  ? 'CropLedger ஊடாடும் உதவியாளர்'
+                  : 'CropLedger Interactive Assistant'}
             </span>
           </h1>
           <p className="text-sm text-slate-500 mt-1 font-semibold">
             {!lang
               ? 'Please select your language inside the chat to start / தொடங்குவதற்கு மொழியைத் தேர்ந்தெடுக்கவும்'
               : lang === 'ta'
-              ? 'உதவிக்குறிப்புகள் அல்லது தேடல் வார்த்தைகளைக் கிளிக் செய்து பதில்களைப் பெறலாம்'
-              : 'Click quick options or search keywords to access CropLedger documentation'}
+                ? 'உதவிக்குறிப்புகள் அல்லது தேடல் வார்த்தைகளைக் கிளிக் செய்து பதில்களைப் பெறலாம்'
+                : 'Click quick options or search keywords to access CropLedger documentation'}
           </p>
         </div>
         <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-[#eef8f4] text-[#2d6a4f] text-xs font-extrabold rounded-full border border-[#d7f1e6]">
@@ -467,32 +473,29 @@ export default function Assistant() {
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex gap-3 max-w-[85%] ${
-                msg.sender === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'
-              }`}
+              className={`flex gap-3 max-w-[85%] ${msg.sender === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'
+                }`}
             >
               <div
-                className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 shadow-sm border ${
-                  msg.sender === 'user'
-                    ? 'bg-primary-green text-white border-primary-green'
-                    : 'bg-[#faf9f5] text-slate-600 border-warm-border/50'
-                }`}
+                className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 shadow-sm border ${msg.sender === 'user'
+                  ? 'bg-primary-green text-white border-primary-green'
+                  : 'bg-[#faf9f5] text-slate-600 border-warm-border/50'
+                  }`}
               >
                 {msg.sender === 'user' ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4 text-leaf-green" />}
               </div>
 
               <div
-                className={`p-4 rounded-2xl text-sm leading-relaxed ${
-                  msg.sender === 'user'
-                    ? 'bg-primary-green text-white shadow-sm rounded-tr-none font-semibold'
-                    : 'bg-warm-cream/20 text-[#3d3a35] border border-warm-border/30 rounded-tl-none font-semibold shadow-sm'
-                }`}
+                className={`p-4 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user'
+                  ? 'bg-primary-green text-white shadow-sm rounded-tr-none font-semibold'
+                  : 'bg-warm-cream/20 text-[#3d3a35] border border-warm-border/30 rounded-tl-none font-semibold shadow-sm'
+                  }`}
               >
                 <p className="whitespace-pre-line">{msg.text}</p>
               </div>
             </div>
           ))}
-          
+
           <div ref={chatEndRef} />
         </div>
 
@@ -502,8 +505,8 @@ export default function Assistant() {
             {!lang
               ? 'Please select your preferred language / ஒரு மொழியைத் தேர்ந்தெடுக்கவும்:'
               : lang === 'ta'
-              ? 'தொடர்புடைய கேள்வி ஒன்றைத் தேர்ந்தெடுக்கவும்:'
-              : 'Select a follow-up option:'}
+                ? 'தொடர்புடைய கேள்வி ஒன்றைத் தேர்ந்தெடுக்கவும்:'
+                : 'Select a follow-up option:'}
           </p>
           <div className="flex flex-col gap-2">
             {activeOptions.map((opt, idx) => (
@@ -549,16 +552,16 @@ export default function Assistant() {
                 !lang
                   ? "Choose language from the buttons below / மொழியைத் தேர்ந்தெடுக்கவும்..."
                   : lang === 'ta'
-                  ? "முக்கிய வார்த்தைகளைத் தேடுக (எ.கா. 'பணம்', 'தக்காளி', 'விவசாயி')..."
-                  : "Search by keywords (e.g., 'payout', 'banana', 'register')..."
+                    ? "முக்கிய வார்த்தைகளைத் தேடுக (எ.கா. 'பணம்', 'தக்காளி', 'விவசாயி')..."
+                    : "Search by keywords (e.g., 'payout', 'banana', 'register')..."
               }
               className="w-full bg-white border border-slate-200 pl-10 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-leaf-green focus:border-transparent font-semibold shadow-sm"
               disabled={!lang}
             />
             <Search className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-400" />
             {queryInput && (
-              <button 
-                onClick={() => setQueryInput('')} 
+              <button
+                onClick={() => setQueryInput('')}
                 className="absolute right-3.5 top-3.5 text-slate-400 hover:text-slate-650 cursor-pointer"
               >
                 <X className="h-4 w-4" />

@@ -14,13 +14,17 @@ import {
   AlertCircle,
   Briefcase,
   Printer,
-  ChevronRight
+  ChevronRight,
+  Search,
+  X
 } from 'lucide-react';
 
 export default function Statements() {
   const { user } = useAuth();
   const isFarmer = user?.role === 'Farmer';
   const [selectedFarmerId, setSelectedFarmerId] = useState(isFarmer ? user.id : '');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
 
   // Sync selected farmer ID for Farmer session
   useEffect(() => {
@@ -53,6 +57,17 @@ export default function Statements() {
 
   const selectedFarmer = (farmers || []).find(f => f.id === selectedFarmerId);
 
+  // Filter farmers list by search query (name, phone, village)
+  const filteredFarmers = (farmers || []).filter(f => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return true;
+    return (
+      f.name.toLowerCase().includes(query) ||
+      (f.phone && f.phone.toLowerCase().includes(query)) ||
+      (f.village && f.village.toLowerCase().includes(query))
+    );
+  });
+
   const handlePrint = () => {
     window.print();
   };
@@ -78,20 +93,91 @@ export default function Statements() {
 
       {/* Select Farmer Card - Hidden on Print & Hidden for Farmers */}
       {!isFarmer && (
-        <div className="bg-white p-6 rounded-2xl border border-warm-border/60 shadow-sm space-y-4 print:hidden">
+        <div className="bg-white p-6 rounded-2xl border border-warm-border/60 shadow-sm space-y-4 print:hidden relative">
           <label className="block text-xs font-bold text-earth-brown uppercase tracking-wider">Select Farmer Profile</label>
-          <div className="w-full">
-            <select
-              value={selectedFarmerId}
-              onChange={(e) => setSelectedFarmerId(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-leaf-green focus:border-transparent font-semibold bg-slate-50/30 cursor-pointer transition duration-150"
-            >
-              <option value="">Choose CropLedger Member...</option>
-              {(farmers || []).map(f => (
-                <option key={f.id} value={f.id}>{f.name} ({f.village})</option>
-              ))}
-            </select>
-          </div>
+          
+          {selectedFarmerId ? (
+            /* Selected State */
+            <div className="flex items-center justify-between bg-leaf-green/5 border border-leaf-green/20 rounded-xl p-4 transition duration-150">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 bg-leaf-green/10 text-primary-green rounded-lg flex items-center justify-center border border-leaf-green/20">
+                  <User className="h-5 w-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-primary-green">{selectedFarmer?.name}</h4>
+                  <p className="text-xs text-slate-500 font-semibold">{selectedFarmer?.village} • {selectedFarmer?.phone}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  setSelectedFarmerId('');
+                  setSearchQuery('');
+                  setIsOpen(true);
+                }}
+                className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition cursor-pointer"
+                title="Change Farmer"
+              >
+                <X className="h-4.5 w-4.5" />
+              </button>
+            </div>
+          ) : (
+            /* Search State */
+            <div className="relative">
+              <div className="relative z-20">
+                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 pointer-events-none">
+                  <Search className="h-4.5 w-4.5 text-slate-400" />
+                </span>
+                <input
+                  type="text"
+                  placeholder="Search farmer by name, village, or phone number..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setIsOpen(true)}
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-sm text-slate-850 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-leaf-green focus:border-transparent font-semibold bg-slate-50/30 transition duration-150"
+                />
+              </div>
+
+              {/* Click outside backdrop */}
+              {isOpen && (
+                <div 
+                  className="fixed inset-0 z-10" 
+                  onClick={() => setIsOpen(false)} 
+                />
+              )}
+
+              {/* Dropdown Options Popup */}
+              {isOpen && (
+                <div className="absolute left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-xl z-20 max-h-64 overflow-y-auto animate-fade-in divide-y divide-slate-100">
+                  {filteredFarmers.length === 0 ? (
+                    <div className="p-4 text-center text-xs text-slate-400 font-semibold">
+                      No farmers found matching "{searchQuery}"
+                    </div>
+                  ) : (
+                    filteredFarmers.map((f) => (
+                      <button
+                        key={f.id}
+                        onClick={() => {
+                          setSelectedFarmerId(f.id);
+                          setIsOpen(false);
+                          setSearchQuery('');
+                        }}
+                        className="w-full text-left px-4 py-3 hover:bg-slate-50 flex items-center justify-between transition cursor-pointer"
+                      >
+                        <div>
+                          <p className="text-sm font-bold text-slate-800">{f.name}</p>
+                          <p className="text-xs text-slate-400 font-semibold">{f.phone}</p>
+                        </div>
+                        <span className="text-xs px-2.5 py-1 bg-warm-cream border border-warm-border/50 rounded-full text-earth-brown font-bold flex items-center gap-1">
+                          <MapPin className="h-3 w-3 text-leaf-green" />
+                          {f.village}
+                        </span>
+                      </button>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 

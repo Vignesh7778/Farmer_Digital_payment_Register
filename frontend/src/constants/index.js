@@ -14,8 +14,14 @@ export const ROUTES = {
 export const PRODUCE_UNITS = [
   { value: 'kg', label: 'Kilograms (kg)' },
   { value: 'liter', label: 'Liters (L)' },
+  { value: 'quintal', label: 'Quintals (qtl)' },
+  { value: 'ton', label: 'Tonnes (t)' },
   { value: 'bunch', label: 'Bunches' },
   { value: 'piece', label: 'Pieces' },
+  { value: 'bag', label: 'Bags' },
+  { value: 'box', label: 'Boxes' },
+  { value: 'crate', label: 'Crates' },
+  { value: 'dozen', label: 'Dozens' },
 ];
 
 export { faqData } from './faqData';
