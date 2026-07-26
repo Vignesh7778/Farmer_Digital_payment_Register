@@ -128,9 +128,13 @@ You can run and manage the applications directly from the root workspace directo
    ```bash
    npm run dev
    ```
-4. Log in with the operator credentials:
-   * **Username:** `operator`
-   * **Password:** `admin123`
+4. Log in with the demo credentials:
+   * **Operator Login:**
+     * **Username:** `operator`
+     * **Password:** `admin123`
+   * **Farmer Login:**
+     * **Phone Number / Username:** `9876543210`
+     * **Password:** `farmer123`
 
 ### 2. Live Supabase Database Setup
 To deploy to a live Supabase project, execute the following SQL scripts in the Supabase **SQL Editor** in order:
