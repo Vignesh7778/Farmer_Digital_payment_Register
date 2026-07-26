@@ -155,5 +155,11 @@ Visit the **Testing Center** directly via the `/testing` route URL in the applic
 
 ---
 
+## Demo Video
+You can watch a complete walkthrough of the application in action here: [Application Demo Video (Google Drive)](https://drive.google.com/file/d/1J_ZyMhtTwD9PAVU7tW4rvjeKh4scP4KG/view?usp=drive_link)
+
+---
+
 ## License
 MIT License. Created for the SIH 2026 Practical Assessment.
+
