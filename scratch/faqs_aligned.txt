@@ -1,0 +1,400 @@
+ID 1
+  EN: How do I register a new farmer?
+  TA: புதிய விவசாயியை எவ்வாறு பதிவு செய்வது?
+
+ID 2
+  EN: Can two farmers have the same phone number?
+  TA: இரண்டு விவசாயிகள் ஒரே தொலைபேசி எண்ணைக் கொண்டிருக்க முடியுமா?
+
+ID 3
+  EN: How do I view a farmer's payment statements?
+  TA: விவசாயியின் கட்டண அறிக்கைகளை நான் எவ்வாறு பார்ப்பது?
+
+ID 4
+  EN: Where can I find a list of all registered villages?
+  TA: பதிவுசெய்யப்பட்ட அனைத்து கிராமங்களின் பட்டியலை நான் எங்கே கண்டுபிடிப்பது?
+
+ID 5
+  EN: How can I search for a farmer in the system?
+  TA: கணினியில் ஒரு விவசாயியை எவ்வாறு தேடுவது?
+
+ID 6
+  EN: How do I edit a farmer's details?
+  TA: விவசாயியின் விவரங்களை எவ்வாறு திருத்துவது?
+
+ID 7
+  EN: What happens if I delete a farmer?
+  TA: ஒரு விவசாயியை நீக்கினால் என்ன நடக்கும்?
+
+ID 8
+  EN: Can I filter farmers by their village?
+  TA: விவசாயிகளை கிராம வாரியாக வடிகட்ட முடியுமா?
+
+ID 9
+  EN: How do I see total earnings for a specific farmer?
+  TA: விவசாயியின் மொத்த வருவாயை நான் எவ்வாறு பார்ப்பது?
+
+ID 10
+  EN: How is a farmer's outstanding balance calculated?
+  TA: விவசாயியின் நிலுவைத்தொகை எவ்வாறு கணக்கிடப்படுகிறது?
+
+ID 11
+  EN: How do I download a statement for a single farmer?
+  TA: விவசாயியின் அறிக்கை சுருக்கத்தை எவ்வாறு பதிவிறக்குவது?
+
+ID 12
+  EN: What are the main details stored for a farmer?
+  TA: விவசாயிக்கு என்னென்ன விவரங்கள் சேமிக்கப்படுகின்றன?
+
+ID 13
+  EN: Can I import farmers from an Excel list?
+  TA: விவசாயிகளை எக்செல் கோப்பு மூலம் இறக்குமதி செய்யலாமா?
+
+ID 14
+  EN: Why is a farmer not showing up in the Collections dropdown?
+  TA: விளக்கப்பட சேகரிப்பு கீழ்தோன்றலில் ஒரு விவசாயி ஏன் காட்டப்படவில்லை?
+
+ID 15
+  EN: How do I correct a typo in a farmer's name?
+  TA: விவசாயியின் பெயரில் உள்ள எழுத்துப்பிழையை எவ்வாறு சரிசெய்வது?
+
+ID 16
+  EN: What if a farmer does not have a phone number?
+  TA: விவசாயிக்கு தொலைபேசி எண் இல்லை என்றால் என்ன செய்வது?
+
+ID 17
+  EN: How do I view a farmer's registration date?
+  TA: விவசாயிகளின் எண்ணிக்கைக்கு வரம்பு உள்ளதா?
+
+ID 18
+  EN: Are inactive farmers kept in the database?
+  TA: தனித்துவமான அடையாள அட்டை சேமிக்கப்படுகிறதா?
+
+ID 19
+  EN: How many farmers can I register in the database?
+  TA: விவசாயிகள் தங்களின் பதிவுகளைப் பார்க்க முடியுமா?
+
+ID 20
+  EN: Who should I contact if a farmer account is locked?
+  TA: விவசாயியின் நிலையை செயலிழக்க செய்ய முடியுமா?
+
+ID 21
+  EN: How do I add a new crop or produce type?
+  TA: புதிய பயிரை எவ்வாறு சேர்ப்பது?
+
+ID 22
+  EN: What units of measure are supported for produce?
+  TA: பயிர்களின் அளவீட்டு அலகுகள் யாவை?
+
+ID 23
+  EN: How do I set the rate for a crop?
+  TA: ஏற்கனவே உள்ள பயிரின் பெயரை மாற்ற முடியுமா?
+
+ID 24
+  EN: Can I delete a crop from the register?
+  TA: பயிரை நீக்க முடியுமா?
+
+ID 25
+  EN: How do I check all registered crops?
+  TA: விலை விகிதத்தை எங்கு நிர்ணயிப்பது?
+
+ID 26
+  EN: What is the default unit for Milk?
+  TA: அனைத்து பயிர்களின் பட்டியலை எவ்வாறு காண்பது?
+
+ID 27
+  EN: What is the default unit for Banana?
+  TA: ஒரு பயிருக்கு பல அலகுகளைப் பயன்படுத்தலாமா?
+
+ID 28
+  EN: What is the default unit for Tomato?
+  TA: பயிர் பெயர்கள் தனித்துவமாக இருக்க வேண்டுமா?
+
+ID 29
+  EN: Can I change a crop's unit of measure after adding it?
+  TA: பயிர்களை இறக்குமதி செய்ய முடியுமா?
+
+ID 30
+  EN: Can we configure minimum and maximum rates?
+  TA: அதிகாரப்பூர்வ பயிர்கள் பட்டியலில் தக்காளி உள்ளதா?
+
+ID 31
+  EN: How do I add a new unit type?
+  TA: கிலோகிராம் என்பது என்ன?
+
+ID 32
+  EN: Why is my crop not showing in the Collection register?
+  TA: லிட்டர் என்பது என்ன?
+
+ID 33
+  EN: Does the system track different grades of the same crop?
+  TA: மூட்டை அலகு எதற்குப் பயன்படுகிறது?
+
+ID 34
+  EN: How do I search for a specific crop?
+  TA: டன் அலகு எதற்குப் பயன்படுகிறது?
+
+ID 35
+  EN: Are crop names case-sensitive?
+  TA: பயிர் வகைக்கு வரம்பு உள்ளதா?
+
+ID 36
+  EN: Who manages the crop registry list?
+  TA: விவசாயிகள் பயிர்களைச் சேர்க்கலாமா?
+
+ID 37
+  EN: Can I view the total volume collected for each crop?
+  TA: சேகரிப்பு வரலாற்றில் பயிர் வகை எவ்வாறு காட்டப்படுகிறது?
+
+ID 38
+  EN: How do I update the unit of a crop?
+  TA: பயிர் சேகரிப்பு தரவை வரைபடமாகக் காண முடியுமா?
+
+ID 39
+  EN: Is there a limit on how many crops I can register?
+  TA: இயல்புநிலை பயிர் அலகுகளை மாற்றலாமா?
+
+ID 40
+  EN: How are crops sorted in the registry table?
+  TA: பயிர் பட்டியலில் தேடல் வசதி உள்ளதா?
+
+ID 41
+  EN: How do I record a new produce delivery?
+  TA: புதிய விநியோகத்தை எவ்வாறு பதிவு செய்வது?
+
+ID 42
+  EN: How is the total collection amount calculated?
+  TA: விநியோகத் தொகை எவ்வாறு கணக்கிடப்படுகிறது?
+
+ID 43
+  EN: What is the Live Preview field?
+  TA: கடந்த தேதியில் விநியோகத்தை பதிவு செய்ய முடியுமா?
+
+ID 44
+  EN: Can I record a collection for a past date?
+  TA: விநியோகப் பதிவை நீக்க முடியுமா?
+
+ID 45
+  EN: How do I search the delivery list?
+  TA: தவறான பதிவை எவ்வாறு திருத்துவது?
+
+ID 46
+  EN: Can I filter deliveries by farmer name?
+  TA: விவசாயிகள் விநியோகப் பதிவுகளை நீக்க முடியுமா?
+
+ID 47
+  EN: Can I filter deliveries by crop type?
+  TA: விநியோகப் பட்டியலில் என்னென்ன விவரங்கள் உள்ளன?
+
+ID 48
+  EN: What are the sorting options for collections?
+  TA: விநியோக நிலுவைத் தொகையை எவ்வாறு சரிபார்ப்பது?
+
+ID 49
+  EN: What does "Attention Needed" sort order do?
+  TA: கொடுப்பனவு நிலைகளின் வகைகள் யாவை?
+
+ID 50
+  EN: How do I delete an incorrect collection entry?
+  TA: விநியோகப் பட்டியலைத் தேட முடியுமா?
+
+ID 51
+  EN: What is the default date for a new collection?
+  TA: எக்செல் அறிக்கையில் விநியோகங்கள் காட்டப்படுமா?
+
+ID 52
+  EN: Can I enter a decimal value for quantity?
+  TA: கூட்டுறவு சங்கம் இன்று சேகரித்த மொத்த அளவு எவ்வளவு?
+
+ID 53
+  EN: Can I enter a decimal value for the rate?
+  TA: ஒரு விவசாயி ஒரே நாளில் பல விநியோகங்களைச் செய்யலாமா?
+
+ID 54
+  EN: Where can I see the unit of the selected crop in the form?
+  TA: விநியோகப் பதிவேட்டில் குறைந்தபட்ச அளவு உள்ளதா?
+
+ID 55
+  EN: What happens immediately after saving a collection?
+  TA: பூஜ்ஜிய விலையில் விநியோகத்தைப் பதிவு செய்ய முடியுமா?
+
+ID 56
+  EN: Can I record collections when offline?
+  TA: விநியோகப் பதிவு சேமிக்கப்படும் இடம் எது?
+
+ID 57
+  EN: How do I verify if a collection was successfully recorded?
+  TA: ஆபரேட்டர்கள் விநியோகப் பதிவை எவ்வாறு சரிபார்ப்பது?
+
+ID 58
+  EN: Are collection amounts rounded?
+  TA: டாஷ்போர்டில் சமீபத்திய விநியோகங்கள் காட்டுமா?
+
+ID 59
+  EN: Can I add remarks when recording a new delivery?
+  TA: விவசாயி உள்நுழைவில் கிராம வாரியான வடிகட்டி உள்ளதா?
+
+ID 60
+  EN: How do I see who registered a collection?
+  TA: பயிர் அலகுகள் தானாகவே மாறுகிறதா?
+
+ID 61
+  EN: How do I settle a payment for a crop delivery?
+  TA: பட்டுவாடா அல்லது செட்டில்மென்ட் செய்வது எப்படி?
+
+ID 62
+  EN: What are the three payment statuses?
+  TA: பகுதி பட்டுவாடா செய்ய முடியுமா?
+
+ID 63
+  EN: How do I record a partial payment?
+  TA: செலுத்தப்பட்ட தொகையை விட அதிகமாகச் செலுத்த முடியுமா?
+
+ID 64
+  EN: What happens to a previous payment amount when adding a new partial payment?
+  TA: விவசாயிகளுக்கு பட்டுவாடா வரலாறு எங்கு காட்டப்படுகிறது?
+
+ID 65
+  EN: Can I pay more than the outstanding balance?
+  TA: முழு பட்டுவாடா செய்யப்பட்ட பதிவின் நிலை என்னவாக இருக்கும்?
+
+ID 66
+  EN: What happens when the outstanding balance reaches zero?
+  TA: பட்டுவாடா பதிவுகளை நீக்க முடியுமா?
+
+ID 67
+  EN: Can I change a Paid status back to Pending?
+  TA: விவசாயிகள் தாங்களாகவே பட்டுவாடா செய்ய முடியுமா?
+
+ID 68
+  EN: Where can I see the historical payment audits?
+  TA: மொத்த நிலுவைத் தொகையை எங்கு சரிபார்ப்பது?
+
+ID 69
+  EN: Can I add remarks for a payment?
+  TA: பட்டுவாடா செய்யும்போது ரசீது எண் உருவாக்கப்படுகிறதா?
+
+ID 70
+  EN: Does the system support cash and bank transfers?
+  TA: பட்டுவாடா செய்வதற்கான கட்டண முறைகள் யாவை?
+
+ID 71
+  EN: How do I know if a collection is partially paid?
+  TA: விவசாயியின் நிலுவைத் தொகை எப்போது பூஜ்ஜியமாகும்?
+
+ID 72
+  EN: What badge represents a pending payment?
+  TA: செட்டில்மென்ட் படிவத்தில் இன்றைய தேதி காட்டப்படுகிறதா?
+
+ID 73
+  EN: What badge represents a fully settled payment?
+  TA: கூட்டுறவு சங்கம் இதுவரை செலுத்திய மொத்த தொகை எவ்வளவு?
+
+ID 74
+  EN: Are payments synced to Supabase instantly?
+  TA: ஒரு விவசாயிக்கு ஒரே நேரத்தில் பல விநியோகங்களை செட்டில் செய்ய முடியுமா?
+
+ID 75
+  EN: What if a mistake was made during payment recording?
+  TA: நிலுவைத்தொகை உள்ள விவசாயிகளை எவ்வாறு கண்டறிவது?
+
+ID 76
+  EN: Does the system calculate farmer balance statements dynamically?
+  TA: செட்டில்மென்ட் தொகையில் தசம மதிப்புகளைப் பயன்படுத்தலாமா?
+
+ID 77
+  EN: Can I pay multiple deliveries at once?
+  TA: விவசாயியின் வங்கி கணக்கு விவரங்கள் சேமிக்கப்படுகிறதா?
+
+ID 78
+  EN: Where can I see the date a payment was settled?
+  TA: பட்டுவாடா நிலை தானாகவே மாறுகிறதா?
+
+ID 79
+  EN: Does changing the status recalculate the dashboard?
+  TA: செட்டில்மென்ட் செய்யும் போது குறிப்புகள் எழுதலாமா?
+
+ID 80
+  EN: Are auditing remarks required?
+  TA: விவசாயியின் ரசீதை அச்சிட முடியுமா?
+
+ID 81
+  EN: How do I download an Excel or CSV report?
+  TA: எக்செல்/சிஎஸ்வி அறிக்கையை எவ்வாறு பதிவிறக்குவது?
+
+ID 82
+  EN: Can I filter the Excel report by date range?
+  TA: தேதி வாரியாக அறிக்கையை வடிகட்ட முடியுமா?
+
+ID 83
+  EN: What fields are included in the CSV report?
+  TA: பதிவிறக்கம் செய்த சிஎஸ்வி கோப்பில் என்னென்ன விவரங்கள் இருக்கும்?
+
+ID 84
+  EN: How do I view cooperative metrics?
+  TA: கூட்டுறவு சங்கத்தின் மொத்த புள்ளிவிவரங்களை எங்கு காண்பது?
+
+ID 85
+  EN: How do I print a farmer's payment summary?
+  TA: விவசாயியின் அறிக்கையை எவ்வாறு அச்சிடுவது?
+
+ID 86
+  EN: What is the Dashboard outstanding payout card?
+  TA: டாஷ்போர்டில் உள்ள "outstanding payout" கார்டு எதைக் குறிக்கிறது?
+
+ID 87
+  EN: Where can I see the system logs?
+  TA: கணினி பதிவுகள் எங்கு சேமிக்கப்படுகின்றன?
+
+ID 88
+  EN: Can I run the application on a mobile phone?
+  TA: இந்த செயலியை மொபைல் போனில் பயன்படுத்தலாமா?
+
+ID 89
+  EN: How do I log out of the operator session?
+  TA: செயலியில் இருந்து எவ்வாறு வெளியேறுவது (Log out)?
+
+ID 90
+  EN: Is the data saved securely?
+  TA: தரவுகள் பாதுகாப்பாக உள்ளதா?
+
+ID 91
+  EN: Why does the dashboard show zero values?
+  TA: டாஷ்போர்டு ஏன் பூஜ்ஜிய மதிப்புகளைக் காட்டுகிறது?
+
+ID 92
+  EN: What should I do if the app shows a database error?
+  TA: தரவுத்தள பிழை ஏற்பட்டால் என்ன செய்ய வேண்டும்?
+
+ID 93
+  EN: How do I reset my login password?
+  TA: எனது கடவுச்சொல்லை எவ்வாறு மாற்றுவது?
+
+ID 94
+  EN: Can I use this app in multiple languages?
+  TA: செயலியை வேறு மொழிகளில் பயன்படுத்த முடியுமா?
+
+ID 95
+  EN: Where are the settings options stored?
+  TA: அமைப்புத் தேவைகள் (Settings) எங்கு சேமிக்கப்படுகின்றன?
+
+ID 96
+  EN: Does the app save backup files?
+  TA: தரவு காப்புப்பிரதி (Backup) வசதி உள்ளதா?
+
+ID 97
+  EN: How is the total cooperative payout calculated?
+  TA: மொத்த பட்டுவாடா தொகை எவ்வாறு கணக்கிடப்படுகிறது?
+
+ID 98
+  EN: How do I update registered produce details?
+  TA: பயிர்களின் விபரங்களை எவ்வாறு புதுப்பிப்பது?
+
+ID 99
+  EN: How do I view the ER Diagram of the database?
+  TA: தரவுத்தள வரைபடத்தை (ER Diagram) எங்கு காண்பது?
+
+ID 100
+  EN: What is the purpose of this register?
+  TA: இந்த பதிவேட்டின் முக்கிய நோக்கம் என்ன?
+
