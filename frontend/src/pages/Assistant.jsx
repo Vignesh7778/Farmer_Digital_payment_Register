@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { db } from '../services/db';
+import { getOpenRouterResponse, fetchAvailableModels } from '../services/openRouter';
+import { getSelectedModel, setSelectedModel } from '../config/aiConfig';
 import { formatCurrency } from '../utils/helpers';
 import { faqData, faqDataTa } from '../constants';
 import {
@@ -30,6 +32,26 @@ export default function Assistant() {
 
   const [lang, setLang] = useState(null);
   const [queryInput, setQueryInput] = useState('');
+
+  const [selectedModelName, setSelectedModelName] = useState(getSelectedModel());
+  const [modelsList, setModelsList] = useState([]);
+  const [modelSearch, setModelSearch] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    async function loadModels() {
+      const list = await fetchAvailableModels();
+      setModelsList(list);
+    }
+    loadModels();
+  }, []);
+
+  const handleModelChange = (modelId) => {
+    setSelectedModelName(modelId);
+    setSelectedModel(modelId);
+    setDropdownOpen(false);
+    toast.success(`Model switched to ${modelId.split('/').pop()}`);
+  };
 
   const WELCOME_MESSAGES = {
     en: "Hello! I am your CropLedger Assistant. Click on one of the quick options below or type keyword searches to find answers about collections, payments, and member registrations.",
@@ -329,7 +351,8 @@ export default function Assistant() {
     }
 
     // Split words for keyword match
-    const keywords = query.split(' ').filter(w => w.length > 2);
+    const stopwords = ["what", "how", "why", "where", "who", "does", "have", "can", "should", "your", "this", "that", "with", "from", "each", "other", "about", "for", "the", "and", "are", "you", "eppadi", "epdi", "sollu", "sol", "kaatu", "kaattu", "pannunga", "pannu", "எப்படி", "எவ்வாறு", "சொல்", "காட்டு", "எது", "எங்கு", "எப்போது", "யார்", "என்ன"];
+    const keywords = query.split(' ').map(w => w.replace(/[?.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")).filter(w => w.length > 2 && !stopwords.includes(w));
     if (keywords.length > 0) {
       const keywordMatches = activeFaq.filter(q =>
         keywords.some(kw => q.question.toLowerCase().includes(kw) || q.answer.toLowerCase().includes(kw))
@@ -353,12 +376,14 @@ export default function Assistant() {
     if (lang === 'ta') {
       return {
         answer: `எனது பதிவேட்டில் இதற்கான கேள்வியை என்னால் கண்டுபிடிக்க முடியவில்லை. இந்த பொதுவான தலைப்புகளில் ஒன்றைத் தேர்ந்தெடுக்கவும்:`,
-        options: getFollowUpOptions()
+        options: getFollowUpOptions(),
+        isFallback: true
       };
     } else {
       return {
         answer: "I couldn't find a question in my register matches. Try choosing one of these general topics:",
-        options: getFollowUpOptions()
+        options: getFollowUpOptions(),
+        isFallback: true
       };
     }
   };
@@ -424,23 +449,50 @@ export default function Assistant() {
     }
 
     // Simulate thinking state
-    setTimeout(() => {
+    setTimeout(async () => {
       const result = matchQuestionAndAnswer(textToSend);
-      const aiMsg = {
-        id: crypto.randomUUID(),
-        sender: 'assistant',
-        text: result.answer,
-        timestamp: new Date()
-      };
-      setMessages((prev) => [...prev, aiMsg]);
-      setActiveOptions(result.options);
+      
+      if (result.isFallback) {
+        const tempId = crypto.randomUUID();
+        const thinkingText = lang === 'ta' ? 'சிந்திக்கிறது...' : 'Thinking...';
+        const thinkingMsg = {
+          id: tempId,
+          sender: 'assistant',
+          text: thinkingText,
+          timestamp: new Date()
+        };
+        setMessages((prev) => [...prev, thinkingMsg]);
+
+        try {
+          const aiResponse = await getOpenRouterResponse(textToSend, lang);
+          setMessages((prev) => 
+            prev.map(msg => msg.id === tempId ? { ...msg, text: aiResponse } : msg)
+          );
+          setActiveOptions(result.options);
+        } catch (err) {
+          const errorMsg = "I'm unable to answer that right now. Please try again later.";
+          setMessages((prev) => 
+            prev.map(msg => msg.id === tempId ? { ...msg, text: errorMsg } : msg)
+          );
+          setActiveOptions(result.options);
+        }
+      } else {
+        const aiMsg = {
+          id: crypto.randomUUID(),
+          sender: 'assistant',
+          text: result.answer,
+          timestamp: new Date()
+        };
+        setMessages((prev) => [...prev, aiMsg]);
+        setActiveOptions(result.options);
+      }
     }, 300);
   };
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       {/* Header */}
-      <div className="border-b border-warm-border/50 pb-5 flex items-center justify-between">
+      <div className="border-b border-warm-border/50 pb-5 flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-extrabold text-primary-green tracking-tight flex items-center gap-2">
             <Sparkles className="h-6 w-6 text-leaf-green animate-pulse" />
@@ -460,9 +512,54 @@ export default function Assistant() {
                 : 'Click quick options or search keywords to access CropLedger documentation'}
           </p>
         </div>
-        <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-[#eef8f4] text-[#2d6a4f] text-xs font-extrabold rounded-full border border-[#d7f1e6]">
-          <BookOpen className="h-3.5 w-3.5" />
-          <span>{lang === 'ta' ? '100 கேள்விகள்' : '100 Programmed'}</span>
+        <div className="flex items-center gap-2">
+          {/* AI Model Selector */}
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-white text-slate-700 text-xs font-extrabold rounded-xl border border-slate-200 hover:border-leaf-green hover:bg-leaf-green/5 transition shadow-sm cursor-pointer"
+              title="Click to change AI Model"
+            >
+              <Bot className="h-3.5 w-3.5 text-leaf-green" />
+              <span className="max-w-[150px] truncate">{selectedModelName.split('/').pop()}</span>
+            </button>
+            
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-64 bg-white border border-warm-border/60 rounded-xl shadow-lg z-20 p-2 space-y-2">
+                <input
+                  type="text"
+                  value={modelSearch}
+                  onChange={(e) => setModelSearch(e.target.value)}
+                  placeholder="Search models..."
+                  className="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-leaf-green font-semibold"
+                />
+                <div className="max-h-48 overflow-y-auto divide-y divide-slate-100">
+                  {modelsList.length === 0 ? (
+                    <div className="text-[10px] text-slate-400 p-2 font-medium italic">Loading models...</div>
+                  ) : (
+                    modelsList
+                      .filter(m => m.name.toLowerCase().includes(modelSearch.toLowerCase()) || m.id.toLowerCase().includes(modelSearch.toLowerCase()))
+                      .map(m => (
+                        <button
+                          key={m.id}
+                          onClick={() => handleModelChange(m.id)}
+                          className={`w-full text-left px-2 py-1.5 hover:bg-slate-50 text-[10px] rounded transition font-bold block truncate ${
+                            selectedModelName === m.id ? 'text-primary-green bg-leaf-green/5' : 'text-slate-600'
+                          }`}
+                        >
+                          {m.name}
+                        </button>
+                      ))
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-[#eef8f4] text-[#2d6a4f] text-xs font-extrabold rounded-xl border border-[#d7f1e6]">
+            <BookOpen className="h-3.5 w-3.5" />
+            <span>{lang === 'ta' ? '100 கேள்விகள்' : '100 Programmed'}</span>
+          </div>
         </div>
       </div>
 
